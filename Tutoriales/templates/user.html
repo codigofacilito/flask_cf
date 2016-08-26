@@ -1,0 +1,21 @@
+<html>
+<head>
+	<title> Index </title>
+</head>
+<body>
+
+	<h4>Hola usuario</h4>
+	<h4> {{ name }} </h4>
+	<p> {{ age }} </p>
+
+	{% if age > 18 %}
+		<p> es mayor de edad. </p>
+	{% endif %}
+
+
+	{% for item in list %}
+		<p> {{ item }} </p>
+	{% endfor %}
+
+</body>
+</html>
