@@ -12,6 +12,16 @@ app = Flask(__name__)
 app.secret_key = 'my_secret_key'
 csrf = CsrfProtect(app)
 
+@app.route('/')
+def index():
+	title = 'Index'
+	return render_template('index.html', title = title)
+
+@app.route('/')
+def login():
+	login_form = forms.LoginForm()
+	return render_template('login.html', form = login_form)
+
 @app.route('/cookie')
 def cookie():
 	return render_template('cookie.html')

@@ -24,3 +24,10 @@ class CommentForm(Form):
 	honeypot = HiddenField('', [length_honeypot])
 
 
+class LoginForm(Form):
+	username = StringField('username',
+				[ 
+					validators.Required(message = 'El username es requerido!.'),
+						validators.length(min=4, max=25, message='Ingrese un username valido!.'),
+				])
+
