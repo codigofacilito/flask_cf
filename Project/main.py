@@ -3,9 +3,13 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import make_response
+from flask import session
 
-from flask_wtf.csrf import CsrfProtect
+from flask import url_for
+from flask import redirect
 
+from flask_wtf import CsrfProtect
 import forms
 
 app = Flask(__name__)
@@ -14,17 +18,30 @@ csrf = CsrfProtect(app)
 
 @app.route('/')
 def index():
+	if 'username' in session:
+		username = session['username']
+		print username
 	title = 'Index'
 	return render_template('index.html', title = title)
 
-@app.route('/')
-def login():
-	login_form = forms.LoginForm()
-	return render_template('login.html', form = login_form)
+@app.route('/logout')
+def logout():
+	if 'username' in session:
+		session.pop('username')
+	return redirect(url_for('login'))
 
 @app.route('/cookie')
 def cookie():
-	return render_template('cookie.html')
+	reponse = make_response( render_template('cookie.html') )
+	reponse.set_cookie('custome_cookie', 'Eduardo')
+	return reponse
+
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+	login_form = forms.LoginForm(request.form)
+	if request.method == 'POST' and login_form.validate():
+		session['username'] = login_form.username.data
+	return render_template('login.html', form = login_form)
 
 @app.route('/comment', methods = ['GET', 'POST'])
 def comment():
