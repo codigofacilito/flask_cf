@@ -10,14 +10,13 @@
            
             <br>
             <br>
-            
-            <form id="loginForm" method="POST">
+            <form id="login-form" method="POST">
 
             		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
             		
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
-                         {{ render_field(form.username, class='form-control' ) }}
+                         {{ render_field(form.username, class='form-control', id='username' ) }}
 
                         <p class="help-block text-danger"></p>
                     </div>
@@ -25,7 +24,7 @@
 
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
-                         {{ render_field(form.password, class='form-control' ) }}
+                         {{ render_field(form.password, class='form-control',id='password' ) }}
                         <p class="help-block text-danger"></p>
                     </div>
                 </div>
