@@ -17,7 +17,6 @@ import forms
 import json
 
 from models import User
-from models import Comment
 from models import db
 
 app = Flask(__name__)
@@ -35,7 +34,6 @@ def before_request():
 
 	elif 'username' in session and request.endpoint in ['login', 'create']:
 		return redirect(url_for('index'))		
-		
 
 @app.after_request
 def after_request(response):
@@ -45,7 +43,6 @@ def after_request(response):
 def index():
 	if 'username' in session:
 		username = session['username']
-		print username
 	title = 'Index'
 	return render_template('index.html', title = title)
 
@@ -81,15 +78,7 @@ def login():
 def comment():
 	comment_form = forms.CommentForm(request.form)
 	if request.method == 'POST' and comment_form.validate():
-
-		user_id = session['id']
-		comment = Comment(text = comment_form.comment.data, user_id = user_id)
-		db.session.add(comment)
-		db.session.commit()
-		
-	else:
-		print "Error en el formulario"
-
+		pass
 	title = "Curso Flask"
 	return render_template('comment.html', title = title, form = comment_form)
 

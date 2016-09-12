@@ -27,16 +27,3 @@ class User(db.Model):
 	def verify_password(self, password):
 		return check_password_hash(self.password, password)
 		
-
-class Comment(db.Model):
-	__tablename__ = 'comments'
-
-	id = db.Column( db.Integer, primary_key=True)
-	text = db.Column(db.String(250))
-	user_id = db.Column(db.Integer, db.ForeignKey('users.id')  ) 
-	created_date = db.Column(db.DateTime, default = datetime.datetime.now )
-
-
-
-
-
