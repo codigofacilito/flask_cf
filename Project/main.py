@@ -12,16 +12,20 @@ from flask import redirect
 
 from config import DevelopmentConfig
 
+from models import db
+from models import User
+
 from flask_wtf import CsrfProtect
 import forms
 import json
 
-from models import User
-from models import db
-
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 csrf = CsrfProtect()
+
+def create_session(username = '', user_id = ''):
+	session['username'] = username
+	session['user_id'] = use_id
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -86,16 +90,9 @@ def comment():
 def create():
 	create_form = forms.CreateForm(request.form)
 	if request.method == 'POST' and create_form.validate():
-		user = User( 	create_form.username.data,
-									create_form.password.data,
-									create_form.email.data )
-
-		db.session.add(user)  
-		db.session.commit()
-
 		success_message = 'Usuario registrado en la base de datos'
 		flash(success_message)
-
+		
 	return render_template('create.html', form = create_form)
 
 @app.route('/cookie')
