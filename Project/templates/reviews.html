@@ -1,0 +1,20 @@
+{% extends 'base/base.html'%}
+{% block title %} Review  {% endblock %}
+{% block content %}
+    
+   <div class="container">
+        {% if comments %}
+            {% for comment in comments.items %}
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <hr>
+                        <h2 class="section-heading">{{ comment.username }}</h2>
+                        <h5>{{ date_format(comment.created_date) }}</h5>
+                        <p>{{ comment.text }}</p>
+                    </div>
+                </div>
+            {% endfor %}    
+        {% endif %}
+    </div>
+
+{% endblock %}
